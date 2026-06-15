@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# logs / temp
+*.log
+*.tmp
+
+# node (in case tooling is added later)
+node_modules/
+.env
+.env.local
