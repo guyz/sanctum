@@ -1,0 +1,6 @@
+{
+  "appId": "com.guyz.sanctum",
+  "appName": "Sanctum of Ash",
+  "webDir": "www",
+  "ios": { "contentInset": "always" }
+}
