@@ -20,7 +20,7 @@ There are two ways to get it on your devices. **Path A needs nothing but Safari.
 This uses the PWA build hosted on GitHub Pages. Nothing to compile.
 
 1. On your iPhone/iPad, open **Safari** and go to:
-   **https://guyz.github.io/sanctum/sanctum-of-ash.html**
+   **https://guyzyskind.com/sanctum/sanctum-of-ash.html**
 2. Tap the **Share** button (the square with the ↑ arrow).
 3. Tap **Add to Home Screen** → **Add**.
 4. Launch it from the new **Sanctum of Ash** icon (the flame).
