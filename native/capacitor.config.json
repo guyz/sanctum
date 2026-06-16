@@ -2,5 +2,6 @@
   "appId": "com.guyz.sanctum",
   "appName": "Sanctum of Ash",
   "webDir": "www",
-  "ios": { "contentInset": "always" }
+  "backgroundColor": "#0b0a08",
+  "ios": { "contentInset": "never", "backgroundColor": "#0b0a08", "scrollEnabled": false }
 }
