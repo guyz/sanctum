@@ -30,6 +30,14 @@ fi
 echo "==> Setting the app icon (from ../appicon.png) ..."
 [ -f ../appicon.png ] && [ -d ios/App/App/Assets.xcassets/AppIcon.appiconset ] && sips -z 1024 1024 ../appicon.png --out ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png >/dev/null 2>&1 || true
 
+echo "==> Setting the launch screen (from ../splash-screen.png) ..."
+# The storyboard shows this 'Splash' image scaleAspectFill, matching the in-game splash overlay.
+if [ -f ../splash-screen.png ] && [ -d ios/App/App/Assets.xcassets/Splash.imageset ]; then
+  for f in splash-2732x2732.png splash-2732x2732-1.png splash-2732x2732-2.png; do
+    sips -z 2732 2732 ../splash-screen.png --out "ios/App/App/Assets.xcassets/Splash.imageset/$f" >/dev/null 2>&1 || true
+  done
+fi
+
 echo "==> Syncing web assets into the native project ..."
 npx cap copy ios
 
