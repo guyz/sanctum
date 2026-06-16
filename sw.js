@@ -1,6 +1,7 @@
-/* Sanctum of Ash — service worker: precache the self-contained game for offline play.
-   Bump CACHE (v1 -> v2 ...) whenever you ship a new build so devices pull the update. */
-const CACHE = 'sanctum-v10';
+/* Sanctum of Ash — service worker.
+   The game HTML is served NETWORK-FIRST so a fresh build is picked up immediately when online
+   (it falls back to the cached copy offline). Small assets stay cache-first. Bump CACHE per release. */
+const CACHE = 'sanctum-v11';
 const ASSETS = [
   './sanctum-of-ash.html',
   './manifest.webmanifest',
@@ -22,11 +23,25 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  if (e.request.method !== 'GET') return;
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const isDoc = req.mode === 'navigate' || req.destination === 'document' || /\.html(\?|$)/.test(req.url);
+  if (isDoc) {
+    // network-first: always try the latest build when online; fall back to cache offline
+    e.respondWith(
+      fetch(req).then(res => {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(req, copy));
+        return res;
+      }).catch(() => caches.match(req).then(hit => hit || caches.match('./sanctum-of-ash.html')))
+    );
+    return;
+  }
+  // everything else (manifest, icons): cache-first
   e.respondWith(
-    caches.match(e.request).then(hit => hit || fetch(e.request).then(res => {
+    caches.match(req).then(hit => hit || fetch(req).then(res => {
       const copy = res.clone();
-      caches.open(CACHE).then(c => c.put(e.request, copy));
+      caches.open(CACHE).then(c => c.put(req, copy));
       return res;
     }).catch(() => caches.match('./sanctum-of-ash.html')))
   );
