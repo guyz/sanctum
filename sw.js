@@ -1,6 +1,6 @@
 /* Sanctum of Ash — service worker: precache the self-contained game for offline play.
    Bump CACHE (v1 -> v2 ...) whenever you ship a new build so devices pull the update. */
-const CACHE = 'sanctum-v4';
+const CACHE = 'sanctum-v5';
 const ASSETS = [
   './sanctum-of-ash.html',
   './manifest.webmanifest',
