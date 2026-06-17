@@ -59,3 +59,7 @@ a `build vN` tag (on touch) so you can confirm which version a device actually l
 > Hosting note: this is the `guyz/sanctum` repo, published via GitHub Pages under the
 > account's custom domain at `/sanctum/`. It has no `CNAME`, so it never claims the domain
 > root — `guyzyskind.com` itself is a separate repo.
+
+## Credits
+- **Town / overworld music:** "The Village" by **Eric Matyas** ([soundimage.org](https://soundimage.org)) — royalty-free, used with attribution.
+- Models (KayKit, Quaternius, Kenney), sound effects (RPG Sound Pack by artisticdude, Kenney Impact Sounds) and other procedural/generated art are CC0 / public-domain.
