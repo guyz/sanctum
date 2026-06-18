@@ -1,7 +1,7 @@
 /* Sanctum of Ash — service worker.
    The game HTML is served NETWORK-FIRST so a fresh build is picked up immediately when online
    (it falls back to the cached copy offline). Small assets stay cache-first. Bump CACHE per release. */
-const CACHE = 'sanctum-v28';
+const CACHE = 'sanctum-v29';
 const ASSETS = [
   './sanctum-of-ash.html',
   './manifest.webmanifest',
