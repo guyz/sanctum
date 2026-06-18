@@ -5,6 +5,14 @@
 set -e
 cd "$(dirname "$0")"
 
+echo "==> Regenerating PWA home-screen icons from ../appicon.png (keeps them identical to the native icon) ..."
+# Single source of truth: appicon.png. Do this BEFORE the www copy so www gets the fresh icons.
+if [ -f ../appicon.png ]; then
+  sips -s format png -z 180 180 ../appicon.png --out ../icon-180.png >/dev/null 2>&1 || true
+  sips -s format png -z 192 192 ../appicon.png --out ../icon-192.png >/dev/null 2>&1 || true
+  sips -s format png -z 512 512 ../appicon.png --out ../icon-512.png >/dev/null 2>&1 || true
+fi
+
 echo "==> Copying the game into www/ ..."
 mkdir -p www
 cp ../sanctum-of-ash.html www/index.html
