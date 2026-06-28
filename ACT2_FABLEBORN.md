@@ -60,12 +60,26 @@ Tomb** (sandstone dungeon — mummies/scarabs + boss) · optional **Oasis Cister
 
 ## Roadmap
 - ✅ **0** Foundation: Sun's Rest oasis hub, dev-gated, rendering.
-- **1** Assets: source + embed desert GLBs (palms, sandstone, scorpion, mummy tint).
-- **2** The Sunscar Dunes wilderness + balanced desert mob roster.
-- **3** Town NPCs + vendors + the Act 2 questline.
-- **4** The Buried Tomb dungeon + boss.
-- **5** Items/uniques + a 2nd dungeon + polish.
+- ✅ **1** Assets: 27 CC0 Quaternius GLBs embedded (palms ×4, cacti ×3 + flowers, dry plants, desert
+  rocks, logs/stumps, village buildings, market stalls, cart, benches, gazebo, well, bonfire, hay,
+  cauldron, crates/barrels/bags, fences). Desert mobs are tinted reskins of embedded character models.
+- ✅ **2** The Sunscar Dunes (`buildSunscar`, zone `sunscar`, open desert, continuous spawns, no wandering
+  boss) + desert mob roster in `ENEMY_TYPES`: sandraider, dustjackal, scarab, sandwraith, dunebrute,
+  tombmummy (+ reused snake). All tuned by the bounded-TTK model via `mix`/`ZONE_OFF`/`ZONE_MIN`.
+- ✅ **3** Sun's Rest rebuilt as a populated oasis town (8 NPCs, no overlaps). **WARDEN KHENRA** questgiver
+  (new `giver:'warden'`; GIVER maps + `openVendor` case + act2town interactable at (12,2)). 2-quest Act II
+  questline appended to `QUESTS` **only when `FEAT.act2`** (prod victory timing + old saves untouched):
+  *Sand in the Wells* (clear the dunes) → *The Buried King* (tomb + boss). `ZONE_UNLOCK` gates sunscar/tomb.
+- ✅ **4** The Buried Tomb (`buildTomb`, zone `tomb`): sandstone columns/sarcophagi/braziers/sand-drifts,
+  boss **KHA'ZRUK, THE BURIED KING** (`tombboss`). Inter-zone portals: town↔dunes↔tomb (+ dev-travel buttons).
+- **5** (next) More desert uniques' bespoke drops / a 2nd optional dungeon (Oasis Cistern) + balance pass.
 - **6** Promote to prod: in-world desert entrance gated behind Act 1 victory, balance pass, ship via OTA.
+
+## Verified (this build)
+Dev: both zones build + render, desert mobs spawn/animate with desert tints, tomb boss + boss-HUD,
+Warden dialog opens (`nearNPC` → warden → `openVendor('warden')`), clean sand (no pinwheel), no console
+errors. **Prod (`FEAT.act2=false`): none of act2town/sunscar/tomb are built, quests not appended, desert
+uniques absent from the loot pool, no errors** — the live Act 1 game is unchanged.
 
 > The old `act2` branch ("Trials of Ash" — a portal hub of reused dungeons) is **superseded** by this
 > desert act on `main`. See [[act2-parked-branch]] / [[publishing-architecture]] in memory.
