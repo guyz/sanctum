@@ -29,11 +29,25 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   stays geometry-only (no leak). VERIFIED: candy-kit rift placed GORGEMAW on the dais, altar at
   (7.5,-16.5), chest spawned; Act-1 dungeon still has no wallSegs; no console errors.
 
+## DONE (cont.)
+- **P4 (part 2) — locked boss door + key**: boss room is now the chain's leaf (loops excluded from the
+  last room → exactly one entrance, no softlock). `buildRift` gates the boss room's doorway tiles
+  (ring tiles adjacent to interior floor only — never severs passing corridors) with removable wall
+  boxes + `wallSegs` (`z.riftGate`), drops a glowing KEY on a pedestal in the vault (interactable
+  kind `riftkey` + POI), and a "🔒 SEALED DOOR" POI. `openVendor` riftkey handler opens it (hides
+  boxes + splices segs from `wallSegs`). VERIFIED: gate closes the boss room (typ. 2 segs; up to ~10
+  when the access corridor runs along the room edge — still a single sealed approach, no severing);
+  taking the key flipped gateOpen + removed all gate segs from collision (64→55); no console errors.
+  P4 core set-pieces done (boss/vault/altar/locked-door+key). Lever puzzle folds into P5 charge-nodes;
+  weak-wall secret rooms deferred to the QA/polish pass (optional).
+
 ## NEXT
-- **P4 (part 2)**: locked-door + key (gate the boss room's single corridor entrance with a removable
-  wallSegs run; key in the vault), a lever/puzzle room, and weak-wall secret rooms. (Boss/vault/altar done.)
-- then **P5 quests** (Shattered Sun-Dial collect-and-assemble at `z.altarPos` first) → P6 rift
-  descent+modifiers (`z.riftBoss` death → descend, scaling, modifier roll) → P7 convert story dungeons → QA.
+- **P5 — quests + pictogram trackers**: the Shattered Sun-Dial collect-and-assemble FIRST (3 shards
+  dropped by mini-bosses / in rooms → carry to `z.altarPos` → auto-fuse → visible world change, e.g.
+  open the boss gate or raise a reward). Then charge-nodes (= lever), beat-the-captains, survive-waves,
+  drain, free-captives. Additive save booleans + a HUD pip tracker.
+- then **P6 rift** (descent on `z.riftBoss` death + modifier roll + scaling) → **P7 convert story
+  dungeons** to kits + wire hub doorways → **QA + review checkpoint**.
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
