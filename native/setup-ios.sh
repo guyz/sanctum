@@ -60,8 +60,8 @@ if [ -f ../splash-screen.png ] && [ -d ios/App/App/Assets.xcassets/Splash.images
   done
 fi
 
-echo "==> Syncing web assets into the native project ..."
-npx cap copy ios
+echo "==> Syncing web assets + native plugins into the project ..."
+npx cap sync ios   # copy web assets AND link native plugins (e.g. the OTA updater)
 
 echo ""
 echo "============================================================"

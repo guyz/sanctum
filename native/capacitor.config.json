@@ -3,5 +3,8 @@
   "appName": "Sanctum of Ash",
   "webDir": "www",
   "backgroundColor": "#0b0a08",
-  "ios": { "contentInset": "never", "backgroundColor": "#0b0a08", "scrollEnabled": false }
+  "ios": { "contentInset": "never", "backgroundColor": "#0b0a08", "scrollEnabled": false },
+  "plugins": {
+    "CapacitorUpdater": { "autoUpdate": false, "resetWhenUpdate": true }
+  }
 }

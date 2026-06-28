@@ -4,8 +4,10 @@
   "private": true,
   "description": "Capacitor (native iOS) wrapper for Sanctum of Ash",
   "dependencies": {
+    "@capacitor-community/apple-sign-in": "^7.1.0",
     "@capacitor/core": "^8.4.0",
-    "@capacitor/ios": "^8.4.0"
+    "@capacitor/ios": "^8.4.0",
+    "@capgo/capacitor-updater": "^8.50.1"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.4.0"
