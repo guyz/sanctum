@@ -41,13 +41,23 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   P4 core set-pieces done (boss/vault/altar/locked-door+key). Lever puzzle folds into P5 charge-nodes;
   weak-wall secret rooms deferred to the QA/polish pass (optional).
 
+## DONE (cont.)
+- **P5 — collect-and-assemble (headline quest) + pictogram tracker**: the rift floor's objective is now
+  THE SHATTERED SUN-DIAL — 3 sun-shards spread across rooms (interactable `riftshard` + glowing mesh +
+  POI), carried to the altar (`riftaltar` at `z.altarPos`); assembling unseals the boss gate
+  (`openRiftGate`) + drops a relic. Kid-legible HUD pip tracker `#riftshards` ("🔆 SUN-DIAL ◆◇◇ 1/3"),
+  shown/hidden via `updateRiftHUD()` on zone change + pickups. Replaced the placeholder key as the rift's
+  gate-opener (legacy `riftkey` handler kept for reuse). State is zone-local + transient (no save fields →
+  inherently save-safe). VERIFIED: shard pickup ticked HUD to 1/3; altar assemble opened the gate
+  (10→0 segs) + altarDone; no console errors. Other archetypes (charge/captains/waves/drain/free-captives)
+  fold into the P6 rift quest-roll + P7 story dungeons.
+
 ## NEXT
-- **P5 — quests + pictogram trackers**: the Shattered Sun-Dial collect-and-assemble FIRST (3 shards
-  dropped by mini-bosses / in rooms → carry to `z.altarPos` → auto-fuse → visible world change, e.g.
-  open the boss gate or raise a reward). Then charge-nodes (= lever), beat-the-captains, survive-waves,
-  drain, free-captives. Additive save booleans + a HUD pip tracker.
-- then **P6 rift** (descent on `z.riftBoss` death + modifier roll + scaling) → **P7 convert story
-  dungeons** to kits + wire hub doorways → **QA + review checkpoint**.
+- **P6 — the Sunscar Rift loop**: on `z.riftBoss` death → "descend" portal to the next floor (new seed,
+  scaling difficulty via per-floor ZONE_OFF bump / powerMult); a per-run MODIFIER roll (≤3 boons/banes)
+  + shrine anchors; optionally roll the quest archetype per floor for variety. Expose the floor/seed.
+- then **P7 convert story dungeons** (Tomb/Sun-Temple/Cistern/Stronghold → procedural kits w/ fixed seed
+  + their archetype; Arena/Mirage → set-pieces) + wire Sun's Rest hub doorways → **QA + review checkpoint**.
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
