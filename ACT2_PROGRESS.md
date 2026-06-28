@@ -21,10 +21,19 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   5 rift entries → 4 distinct kits w/ different palettes + layouts + mob counts; catacombs renders cool
   grey-blue vs warm tomb; no console errors.
 
+## DONE (cont.)
+- **P4 (part 1) — set-piece rooms**: `buildRift` now tags rooms by role — boss (farthest from spawn),
+  vault (far from both), altar (nearest grid centre) — and stamps them: boss room = raised dais + the
+  kit boss (`z.riftBoss`) + dramatic light, no trash; vault = treasure chest + 4 pillars; altar =
+  pedestal + emissive gem (`z.altarPos`, the P5 assemble target). Cached `mats.altar` added so teardown
+  stays geometry-only (no leak). VERIFIED: candy-kit rift placed GORGEMAW on the dais, altar at
+  (7.5,-16.5), chest spawned; Act-1 dungeon still has no wallSegs; no console errors.
+
 ## NEXT
-- **P4 — set-pieces**: tag rooms by role (boss = farthest from spawn; vault = dead-end; altar = central;
-  secret = behind weak wall) after generation; stamp string-grid prefabs; sealed-gate via toggling a
-  wallSegs run; locked-door+key. Then P5 quests → P6 rift descent+modifiers → P7 convert story dungeons → QA.
+- **P4 (part 2)**: locked-door + key (gate the boss room's single corridor entrance with a removable
+  wallSegs run; key in the vault), a lever/puzzle room, and weak-wall secret rooms. (Boss/vault/altar done.)
+- then **P5 quests** (Shattered Sun-Dial collect-and-assemble at `z.altarPos` first) → P6 rift
+  descent+modifiers (`z.riftBoss` death → descend, scaling, modifier roll) → P7 convert story dungeons → QA.
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
