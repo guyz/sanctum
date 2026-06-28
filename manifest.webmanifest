@@ -1,6 +1,6 @@
 {
-  "name": "Sanctum of Ash",
-  "short_name": "Sanctum",
+  "name": "Fableborn",
+  "short_name": "Fableborn",
   "description": "A kid-friendly dark action RPG.",
   "start_url": "./sanctum-of-ash.html?source=pwa",
   "scope": "./",

@@ -1,6 +1,6 @@
 {
   "appId": "com.guyz.sanctum",
-  "appName": "Sanctum of Ash",
+  "appName": "Fableborn",
   "webDir": "www",
   "backgroundColor": "#0b0a08",
   "ios": { "contentInset": "never", "backgroundColor": "#0b0a08", "scrollEnabled": false },

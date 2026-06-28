@@ -1,4 +1,4 @@
-# Sanctum of Ash
+# Fableborn
 
 A kid-friendly, Diablo-style action RPG — the whole game is one self-contained HTML file
 (`sanctum-of-ash.html`, three.js with art + audio inlined). The same file runs on desktop,

@@ -1,4 +1,4 @@
-# Publishing Sanctum of Ash — runbook
+# Publishing Fableborn — runbook
 
 This is the end-of-line **housekeeping** (accounts, keys, store metadata). All the *code* is already done
 and verified — sync + OTA are wired but **inert until you fill in the keys below**, so the game ships
@@ -18,7 +18,7 @@ fine right now without any of this.
 
 ## Step 1 — Apple (you're already enrolled ✅)
 1. Confirm membership is **Active** at developer.apple.com/account; note your **Team ID**.
-2. **App Store Connect** → My Apps → **＋ New App**: Bundle ID `com.guyz.sanctum`, name "Sanctum of Ash",
+2. **App Store Connect** → My Apps → **＋ New App**: Bundle ID `com.guyz.sanctum`, name "Fableborn",
    primary language, SKU (anything), category **Games**.
 3. **Sign in with Apple setup** (needed for sync login):
    - In the Apple **Developer** portal → Identifiers → your App ID `com.guyz.sanctum` → enable the

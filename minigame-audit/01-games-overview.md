@@ -1,4 +1,4 @@
-# Sanctum of Ash — Brannic's Learning Mini-Games
+# Fableborn — Brannic's Learning Mini-Games
 
 Documentation of all the puzzle/logic/math mini-games. These are launched from **Brannic the Innkeeper** (the `innmaster` vendor) inside the tavern, and are intended as logic / math / IQ-style puzzles for a **~7-year-old (early/non-reader)**.
 

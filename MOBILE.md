@@ -1,4 +1,4 @@
-# Sanctum of Ash — iPad / iPhone
+# Fableborn — iPad / iPhone
 
 The game now detects touch devices and switches to a **touch control scheme** automatically
 (the desktop/web version is unchanged). On an iPhone/iPad you get:
@@ -23,7 +23,7 @@ This uses the PWA build hosted on GitHub Pages. Nothing to compile.
    **https://guyzyskind.com/sanctum/sanctum-of-ash.html**
 2. Tap the **Share** button (the square with the ↑ arrow).
 3. Tap **Add to Home Screen** → **Add**.
-4. Launch it from the new **Sanctum of Ash** icon (the flame).
+4. Launch it from the new **Fableborn** icon (the flame).
 
 It opens **fullscreen** (no Safari bars) and works **offline** afterward (a service worker
 caches the whole game on first load — the first load is ~20 MB, so use Wi-Fi once).

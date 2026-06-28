@@ -1,5 +1,5 @@
 #!/bin/bash
-# One-shot setup for the native iOS build of Sanctum of Ash (Capacitor 8 + Swift Package Manager).
+# One-shot setup for the native iOS build of Fableborn (Capacitor 8 + Swift Package Manager).
 # Re-run any time after you edit the game — it re-copies the latest HTML into the app.
 # Requires: Node 22+ (installed) and, to actually build/run, the full Xcode 26+ from the Mac App Store.
 set -e

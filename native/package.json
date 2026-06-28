@@ -2,7 +2,7 @@
   "name": "sanctum-native",
   "version": "1.0.0",
   "private": true,
-  "description": "Capacitor (native iOS) wrapper for Sanctum of Ash",
+  "description": "Capacitor (native iOS) wrapper for Fableborn",
   "dependencies": {
     "@capacitor-community/apple-sign-in": "^7.1.0",
     "@capacitor/core": "^8.4.0",
