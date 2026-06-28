@@ -14,10 +14,17 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   render, walls block (player stopped at a 36u wall, never crossed), regenerates each entry, 23 mobs
   spawn+fight, overworld confirmed inert, no console errors.
 
+## DONE (cont.)
+- **P3 — theme kits**: `RIFT_KITS` now has 10 kits (tomb, warren, cistern, crystal, fungal, clockwork,
+  pirate, candy, toy, catacombs) as pure data (wall/floor/light/bg/fogD/mobs/boss/props). `buildRift`
+  rolls a seeded kit per entry; `renderRift` scatters decorative kit props (no colliders). VERIFIED:
+  5 rift entries → 4 distinct kits w/ different palettes + layouts + mob counts; catacombs renders cool
+  grey-blue vs warm tomb; no console errors.
+
 ## NEXT
-- **P3 — theme kits**: expand `RIFT_KITS` to ≥8 distinct kits (data); wire kit selection per dungeon/rift
-  floor; verify each renders as a visibly different world. (One `tomb` kit exists as the template.)
-- then P4 set-pieces → P5 quests → P6 rift descent+modifiers → P7 convert story dungeons → QA + checkpoint.
+- **P4 — set-pieces**: tag rooms by role (boss = farthest from spawn; vault = dead-end; altar = central;
+  secret = behind weak wall) after generation; stamp string-grid prefabs; sealed-gate via toggling a
+  wallSegs run; locked-door+key. Then P5 quests → P6 rift descent+modifiers → P7 convert story dungeons → QA.
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
