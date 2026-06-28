@@ -5,6 +5,11 @@
 set -e
 cd "$(dirname "$0")"
 
+# Build channel: "prod" (default — clean public/App-Store build) or "dev" (cheats + all brain games, for your own device).
+CHANNEL="${1:-prod}"
+if [ "$CHANNEL" != "prod" ] && [ "$CHANNEL" != "dev" ]; then echo "usage: ./setup-ios.sh [prod|dev]"; exit 1; fi
+echo "==> BUILD CHANNEL: $CHANNEL"
+
 echo "==> Regenerating PWA home-screen icons from ../appicon.png (keeps them identical to the native icon) ..."
 # Single source of truth: appicon.png. Do this BEFORE the www copy so www gets the fresh icons.
 if [ -f ../appicon.png ]; then
@@ -17,6 +22,12 @@ echo "==> Copying the game into www/ ..."
 mkdir -p www
 cp ../sanctum-of-ash.html www/index.html
 cp ../icon-180.png ../icon-192.png ../icon-512.png ../manifest.webmanifest ../sw.js www/ 2>/dev/null || true
+if [ "$CHANNEL" = "dev" ]; then
+  echo "==> DEV channel: enabling dev/god tools + all brain games"
+  /usr/bin/sed -i '' "s/window.__CHANNEL='prod'/window.__CHANNEL='dev'/" www/index.html
+else
+  echo "==> PROD channel: dev/god hidden, brain games = maze only"
+fi
 
 echo "==> Installing Capacitor (first run only) ..."
 if [ ! -d node_modules ]; then
