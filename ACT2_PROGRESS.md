@@ -64,11 +64,21 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   floors open their own descend gate. VERIFIED: floors 1→2→3 each reset descendReady + spawn a boss +
   roll an omen; hub re-entry resets to floor 1; descend gate appears on boss death; no console errors.
 
+## DONE (cont.)
+- **P7 (part 1) — Rift wired into the world**: added a "Sunscar Rift" tear in the dunes (`buildSunscar`):
+  a ring of dark obelisks around a glowing purple portal → `{zone:'rift'}` + POI. The endless procedural
+  rift is now reachable in-world (Sun's Rest → dunes → rift tear), not just the dev button; floor resets
+  to 1 on entry from the dunes. VERIFIED: tear renders (obelisks + glow), no centre collider so the
+  portal is steppable, no console errors.
+
 ## NEXT
-- **P7 — convert story dungeons + wire the hub**: Tomb/Sun-Temple/Cistern/Stronghold → procedural kits
-  (fixed seed for a stable authored feel) + their archetype; Arena/Mirage → set-piece rooms; add Sun's
-  Rest doorways/portals into each procedural dungeon + the rift. Then **QA + review checkpoint**
-  (screenshots per kit, perf/leak check over 20 rebuilds, prod+web re-verify → ACT2_TESTREPORT.md).
+- **P7 (part 2) — story-dungeon polish (optional)**: the open-disc Tomb + Sun Temple still exist as
+  fixed dungeons (work fine, just not procedural). Optionally convert them to fixed-seed procedural kits
+  for consistency (parameterize buildRift with {kit, seed} per zone). The unbuilt cistern/mirage/
+  stronghold/arena zone stubs are inert (their bosses ARE used by rift kits) — leave or build later.
+- **QA pass + review checkpoint**: walk town→dunes→tomb/temple/rift end-to-end; perf/leak check over
+  ~20 rift rebuilds (heap stable); re-verify prod (no act2 zones built) + web path; screenshot each kit;
+  write ACT2_TESTREPORT.md; then the act meets the objective bar → flag subjective items for the user.
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
