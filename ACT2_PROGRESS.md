@@ -52,12 +52,23 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   (10→0 segs) + altarDone; no console errors. Other archetypes (charge/captains/waves/drain/free-captives)
   fold into the P6 rift quest-roll + P7 story dungeons.
 
+## DONE (cont.)
+- **P6 — the Sunscar Rift loop (endless content)**: `riftTick` opens a glowing DESCEND gate at the boss
+  room when `z.riftBoss` dies (interactable `riftdescend` + POI + banner). Descending increments
+  `game.riftFloor` and rebuilds (new seed → new kit + layout + omen); `setZone` resets the floor to 1
+  only when entering from a non-rift zone (descend keeps climbing). Per-floor scaling sets
+  `ZONE_OFF.rift = 1+floor` / `ZONE_MIN.rift = 14+floor*2` (read by enemyStats) + mob density rises with
+  depth. Per-floor OMEN roll (Quiet Sands / Restless Halls / Gilded Floor / Blessed Ground / Still Air)
+  tweaks mob count, adds shrines, or drops a bonus chest. Floor banner shows "Floor N · kit · omen".
+  Fixed: per-floor run-state (`descendReady`/`riftBoss`/`altarDone`) now resets in buildRift so deeper
+  floors open their own descend gate. VERIFIED: floors 1→2→3 each reset descendReady + spawn a boss +
+  roll an omen; hub re-entry resets to floor 1; descend gate appears on boss death; no console errors.
+
 ## NEXT
-- **P6 — the Sunscar Rift loop**: on `z.riftBoss` death → "descend" portal to the next floor (new seed,
-  scaling difficulty via per-floor ZONE_OFF bump / powerMult); a per-run MODIFIER roll (≤3 boons/banes)
-  + shrine anchors; optionally roll the quest archetype per floor for variety. Expose the floor/seed.
-- then **P7 convert story dungeons** (Tomb/Sun-Temple/Cistern/Stronghold → procedural kits w/ fixed seed
-  + their archetype; Arena/Mirage → set-pieces) + wire Sun's Rest hub doorways → **QA + review checkpoint**.
+- **P7 — convert story dungeons + wire the hub**: Tomb/Sun-Temple/Cistern/Stronghold → procedural kits
+  (fixed seed for a stable authored feel) + their archetype; Arena/Mirage → set-piece rooms; add Sun's
+  Rest doorways/portals into each procedural dungeon + the rift. Then **QA + review checkpoint**
+  (screenshots per kit, perf/leak check over 20 rebuilds, prod+web re-verify → ACT2_TESTREPORT.md).
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
