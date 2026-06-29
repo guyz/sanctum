@@ -80,6 +80,18 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   reclaims on idle. Prod re-verified clean (no act2/procedural zones build without ?dev), no console
   errors. Wrote `ACT2_TESTREPORT.md` (full verification + subjective items flagged).
 
+## POST-CHECKPOINT FIXES (user feedback round)
+- **Height "bug" re-investigated (definitively NOT in current code)**: at an identical pose the player
+  renders the same in sunscar as in the Act-1 dungeon (head+tunic+sword+shadow, standing); scarab+raider
+  sit correctly on the darkened sand. The sink the user sees is a **STALE BUILD** (native app bundles an
+  HTML snapshot from the last setup-ios.sh; web caches via SW). Action: bumped SW `CACHE` v30→v31; to
+  refresh native, re-run `setup-ios.sh dev` + Xcode. (`95071aa`)
+- **Town portal fixed** (`95071aa`): removed the Sun's Rest→Act-1-vale portal; the town now only opens to
+  the dunes (Act 2 self-contained).
+- **Content**: Warden questline extended to 4 quests (dunes→tomb→Sun Temple→Rift) — verified the Sun
+  Temple seal-puzzle quest credits 1→4 + advances to the RA-SETH boss stage. (`332dbeb`)
+- **QA sweep**: all 5 act2 zones build+render (wallSegs only on rift=85), no console errors; prod clean.
+
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
 leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL
