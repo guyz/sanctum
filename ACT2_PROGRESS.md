@@ -92,6 +92,24 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   Temple seal-puzzle quest credits 1→4 + advances to the RA-SETH boss stage. (`332dbeb`)
 - **QA sweep**: all 5 act2 zones build+render (wallSegs only on rift=85), no console errors; prod clean.
 
+## POST-CHECKPOINT FIXES (user feedback round 2 — town + mob variety)
+- **Town rework** (`buildOasisTown`): the user said Sun's Rest was compressed, mis-oriented, and
+  "not desert-like." Swapped the medieval green-roof GLB house kit for the procedural flat-roof ADOBE
+  `building()` (parapets/domes/awnings/sandstone courses), every door now faces the oasis plaza;
+  spread the house ring r15-26 → r19-42 with 4.5u gaps (14 houses); added packed-sand STREETS fanning
+  from the plaza (main road aimed at the dunes gate); moved boundary fences out to r46-50 (outside the
+  houses). VERIFIED in preview: adobe houses spaced along streets, player reads clearly on sand, desert
+  flora (cacti/palms) intact, no console errors.
+- **Mob variety**: the user said too many Act-1 reskins remained. Added 9 DISTINCT-SILHOUETTE desert
+  creatures from embedded CC0 monster models (none humanoid): Bristle Cactus (gaunt_cactus), Dune Stalker
+  (raptor), Sand Hornet (wasp), Quicksand Maw (mawgooey), Oasis Sporeling (gaunt_mush), Sun Ifrit (demon),
+  Dune Behemoth (gaunt_yeti), Bone Tyrant (trex), Dune Wyvern (dragon2). Wired into the player-facing
+  zones — dunes mix+opening (lizard/hornet/cactus + roaming wyvern elite), tomb (Quicksand Maw + Bone
+  Tyrant elite), Sun Temple (Sun Ifrits), Cistern (Sporelings), and 6 rift kits. VERIFIED: all 9 build
+  with models + spawn from the director, every anim clip confirmed present per model, dragon/wyvern
+  silhouette renders distinct, zero console errors. (Note: dunewyvern reads quite red — acceptable as a
+  fire-wyvern; could tint sandier in a later polish pass if desired.)
+
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
 leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL
