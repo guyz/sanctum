@@ -71,14 +71,21 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   to 1 on entry from the dunes. VERIFIED: tear renders (obelisks + glow), no centre collider so the
   portal is steppable, no console errors.
 
-## NEXT
-- **P7 (part 2) — story-dungeon polish (optional)**: the open-disc Tomb + Sun Temple still exist as
-  fixed dungeons (work fine, just not procedural). Optionally convert them to fixed-seed procedural kits
-  for consistency (parameterize buildRift with {kit, seed} per zone). The unbuilt cistern/mirage/
-  stronghold/arena zone stubs are inert (their bosses ARE used by rift kits) — leave or build later.
-- **QA pass + review checkpoint**: walk town→dunes→tomb/temple/rift end-to-end; perf/leak check over
-  ~20 rift rebuilds (heap stable); re-verify prod (no act2 zones built) + web path; screenshot each kit;
-  write ACT2_TESTREPORT.md; then the act meets the objective bar → flag subjective items for the user.
+## DONE (cont.)
+- **Readability fix** (`7ca40ab`): the desert sand was washing out figures (read as "sunk"); re-darkened
+  + re-textured the dunes sand + tomb-kit floor + toned the over-bright lighting. NOT a height bug —
+  all entities verified at y=0; it was contrast.
+- **QA pass** (`3c53aaa` + this): fixed rift-rebuild leaks (poiLabels/shrines/chests + per-build
+  materials now cleared in teardown; cached kit mats preserved) — POIs flat across 25 rebuilds, heap
+  reclaims on idle. Prod re-verified clean (no act2/procedural zones build without ?dev), no console
+  errors. Wrote `ACT2_TESTREPORT.md` (full verification + subjective items flagged).
+
+## STATUS: feature-complete; autonomous loop PAUSED
+The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
+leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL
+(convert open-disc Tomb/Sun-Temple to fixed-seed procedural kits; secret rooms/lever; quest-gate the
+rift for prod promotion). The cron loop was deleted at this checkpoint. To resume: tell me "continue"
+(I'll re-create the loop) or point me at a specific fix.
 
 ## NOTES / GOTCHAS
 - `freeze(root)` only locks matrices (does NOT merge meshes); keep per-build mesh counts sane (walls are
