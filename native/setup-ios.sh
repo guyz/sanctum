@@ -102,6 +102,32 @@ if [ -f ios/App/App/Info.plist ]; then
   echo "==> App display name set to 'Fableborn'"
 fi
 
+# Sign in with Apple capability: write the entitlement + wire it into BOTH build configs (idempotent).
+# Required for the native Apple sign-in (Supabase cloud sync) to work at all. With automatic signing,
+# Xcode registers this capability on the App ID on the next build.
+ENT=ios/App/App/App.entitlements
+if [ -d ios/App/App ]; then
+  if [ ! -f "$ENT" ]; then
+    cat > "$ENT" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+</dict>
+</plist>
+PLIST
+  fi
+  PB=ios/App/App.xcodeproj/project.pbxproj
+  if [ -f "$PB" ] && ! grep -q "CODE_SIGN_ENTITLEMENTS" "$PB"; then
+    perl -0pi -e 's/(\n(\t+)CODE_SIGN_STYLE = Automatic;)/$1\n$2CODE_SIGN_ENTITLEMENTS = App\/App.entitlements;/g' "$PB"
+    echo "==> Wired Sign in with Apple entitlement into the project"
+  fi
+fi
+
 echo ""
 echo "============================================================"
 echo " DONE. Now open it in Xcode:"
