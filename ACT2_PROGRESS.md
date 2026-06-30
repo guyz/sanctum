@@ -125,6 +125,33 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
 - **NEXT — Task #24**: a multi-stage Act 2 storyline tying the landmarks/dungeons together with varied
   quest archetypes (the Warden line is currently only 4). Plan proposed to the user for a steer first.
 
+## GOAL RELAUNCH COMPLETED (2026-06-30): Act 2 architecture + story pass
+- **Baseline preserved**: committed the pre-existing dirty `.codex/config.toml` first, then committed the
+  terrain/elevation architecture fix separately.
+- **Terrain/elevation architecture fixed** (`f2c032c`): Act 2 no longer has its own one-off terrain logic.
+  `zoneGroundY()` / `groundY()` are zone-aware; Sunscar static children are settled with the same shared
+  pass as Act 1; portals, enemies, pickups, shadows, click/held movement, minimap boundary, projectiles,
+  and spawn clamps all use zone-aware terrain/radius. Sunscar now has `walkR` inside its visible rim.
+- **Mountains are real blockers**: all eight Sunscar mesas use one shared `SUNSCAR_MESAS` table for both
+  heightfield contribution and circular colliders, so the visible landmark mountains and collision agree.
+- **Warden storyline expanded to 6 quests**: `Sand in the Wells` → `The Caravan's Bones` →
+  `The Buried King` → `Shards of the Sun-Dial` → `The Sealed Light` → `The Storm-Eater`.
+  Added stage-aware visit/ambush progression and fixed quest guide routing so entrance markers and
+  in-zone objectives do not collapse into the old Act-1 "HUNT HERE" assumption.
+- **Sun-Dial open-world collection built**: three Sunscar shard interactables now settle onto the terrain,
+  hide after pickup, save via additive fields (`act2ShardMask`, `sunDialAssembled`), and advance to the
+  central altar stage. The altar completes the quest objective.
+- **Standalone Act 2 zones built**: `cistern`, `mirage`, `stronghold`, and `arena` now have real builders,
+  portals, POIs, colliders, shrine/chest placement, and seeded encounters. They are no longer referenced
+  only as Rift kits.
+- **Rift progression gated**: arena unlocks when `The Storm-Eater` is accepted; Rift unlocks only after
+  that quest is rewarded (dev/god bypass remains intentional for tooling).
+- **Verification**: `node` script parse clean; Chrome/Playwright via system Chrome loaded `?dev` in
+  desktop and mobile viewports, rendered all Act 2 zones with nonblank screenshot stats, reported no page
+  errors, confirmed 6 Warden quests, confirmed all standalone zones/portals/colliders exist, confirmed
+  mesa blockers, confirmed shard mesh Y equals Sunscar terrain Y, confirmed Rift gate logic, and confirmed
+  shard→altar quest progression.
+
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
 leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL
