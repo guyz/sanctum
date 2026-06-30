@@ -10,3 +10,7 @@
 node_modules/
 .env
 .env.local
+
+# local-only ops notes (device/account specifics, not for the public repo)
+SAVE_MIGRATION.md
+*.local.md
