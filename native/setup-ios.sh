@@ -94,6 +94,14 @@ fi
 echo "==> Syncing web assets + native plugins into the project ..."
 npx cap sync ios   # copy web assets AND link native plugins (e.g. the OTA updater)
 
+# Home-screen name: the ios/ project was first generated as "Sanctum of Ash"; force the current name.
+# (Capacitor only sets CFBundleDisplayName at `cap add ios` time, not on sync, so pin it here.)
+if [ -f ios/App/App/Info.plist ]; then
+  /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Fableborn" ios/App/App/Info.plist 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add :CFBundleDisplayName string Fableborn" ios/App/App/Info.plist 2>/dev/null || true
+  echo "==> App display name set to 'Fableborn'"
+fi
+
 echo ""
 echo "============================================================"
 echo " DONE. Now open it in Xcode:"
