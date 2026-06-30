@@ -29,6 +29,27 @@ else
   echo "==> PROD channel: dev/god hidden, brain games = maze only"
 fi
 
+# Inject the cloud config (Supabase URL + anon key) from the gitignored sanctum.config.json into the
+# bundled www/index.html so Sign in with Apple + save-sync are LIVE on the device. The committed HTML
+# keeps __CFG empty, so the public web build stays cloud-off until we deploy keys there too.
+if [ -f sanctum.config.json ]; then
+  echo "==> Injecting cloud config (Supabase keys) from sanctum.config.json ..."
+  node -e '
+    const fs = require("fs");
+    const cfg = JSON.parse(fs.readFileSync("sanctum.config.json", "utf8"));
+    const f = "www/index.html"; let h = fs.readFileSync(f, "utf8");
+    const inj = "window.__CFG={supabaseUrl:" + JSON.stringify(cfg.supabaseUrl || "") +
+                ",supabaseAnonKey:" + JSON.stringify(cfg.supabaseAnonKey || "") +
+                ",otaUrl:" + JSON.stringify(cfg.otaUrl || "") + "};";
+    const re = /window\.__CFG=window\.__CFG\|\|\{[^}]*\};/;
+    if (!re.test(h)) { console.error("   !! could not find the __CFG line to replace"); process.exit(1); }
+    fs.writeFileSync(f, h.replace(re, inj));
+    console.log("   cloud sign-in/sync:", cfg.supabaseUrl ? "ENABLED (" + cfg.supabaseUrl + ")" : "(no url — stays off)");
+  '
+else
+  echo "==> (no sanctum.config.json — cloud sign-in/sync stays OFF in this build)"
+fi
+
 echo "==> Installing Capacitor (first run only) ..."
 if [ ! -d node_modules ]; then
   npm install @capacitor/core @capacitor/ios
