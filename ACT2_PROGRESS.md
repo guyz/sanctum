@@ -110,6 +110,21 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   silhouette renders distinct, zero console errors. (Note: dunewyvern reads quite red — acceptable as a
   fire-wyvern; could tint sandier in a later polish pass if desired.)
 
+## GOAL RELAUNCH (2026-06-30): bigger world + content (user-set goal)
+- **Mountain bug — verified solved across all Act 2 zones**: sunscar is a terrain heightfield (ride it,
+  blocked at the rim), no leftover mesh mountains; act2town has no horizon mesas; tomb/suntemple are
+  flat-floor + wall colliders. (Task #21)
+- **World expanded ~30% bigger than Act 1**: `zones.sunscar.r` 96→215 (Act 1 = 165). Terrain/rim/clamp/
+  foliage-spread auto-scale from R; spawns are player-relative + minimap is player-local (auto). Gates
+  spread to compass edges (S home, N tomb, W temple, E rift) as rim-notch passes, each with matching
+  flatten-zone + entry + dungeon-exit. Density ~3×; SGRID 128→200, ground mesh 232 segs; zone-aware
+  camera far (sunscar 360) + a bit more haze. (Task #22, committed)
+- **Landmarks + named encounters**: Sunken Colossus, Raider Camp (+captain), Bone Field (+Bone Tyrant),
+  Ruined Watchtower — each a POI beacon on the heightfield; south-gate welcome wave; relics scaled
+  (6 shrines/12 chests). (Task #23, committed)
+- **NEXT — Task #24**: a multi-stage Act 2 storyline tying the landmarks/dungeons together with varied
+  quest archetypes (the Warden line is currently only 4). Plan proposed to the user for a steer first.
+
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
 leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL
