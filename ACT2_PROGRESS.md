@@ -132,8 +132,9 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   `zoneGroundY()` / `groundY()` are zone-aware; Sunscar static children are settled with the same shared
   pass as Act 1; portals, enemies, pickups, shadows, click/held movement, minimap boundary, projectiles,
   and spawn clamps all use zone-aware terrain/radius. Sunscar now has `walkR` inside its visible rim.
-- **Mountains are real blockers**: all eight Sunscar mesas use one shared `SUNSCAR_MESAS` table for both
-  heightfield contribution and circular colliders, so the visible landmark mountains and collision agree.
+- **Mountains are real blockers**: all eight Sunscar mesas use one shared `SUNSCAR_MESAS` table for separate
+  scenery meshes plus circular colliders, matching Act 1's open-world pattern. Mesas are not part of the
+  walkable heightfield.
 - **Warden storyline expanded to 6 quests**: `Sand in the Wells` → `The Caravan's Bones` →
   `The Buried King` → `Shards of the Sun-Dial` → `The Sealed Light` → `The Storm-Eater`.
   Added stage-aware visit/ambush progression and fixed quest guide routing so entrance markers and
@@ -151,6 +152,16 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   errors, confirmed 6 Warden quests, confirmed all standalone zones/portals/colliders exist, confirmed
   mesa blockers, confirmed shard mesh Y equals Sunscar terrain Y, confirmed Rift gate logic, and confirmed
   shard→altar quest progression.
+
+## BUGFIX FOLLOW-UP (2026-06-30): Sunscar mesa walkability
+- **Root cause**: the first elevation fix made Sunscar terrain zone-aware, but still put mesa mountains into
+  the same heightfield the player walks on. Act 1 does not do that; its mountains/rocks are separate scenery
+  with colliders or live outside the playable clamp.
+- **Fix**: `buildSunscarTerrain()` now produces walkable dunes only. `SUNSCAR_MESAS` feed `addSunscarMesa()`
+  meshes and matching circular colliders; the visual rim begins beyond `walkR`.
+- **Verification**: static script parse clean; Chrome/Playwright sampled every Sunscar mesa center at low
+  dune elevation, pushed test points out to each mesa collider radius, and confirmed the rim stays low at
+  the clamp while rising outside the playable area.
 
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/

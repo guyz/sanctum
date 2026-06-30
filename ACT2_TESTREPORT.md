@@ -53,12 +53,18 @@ needs owner eyes / a real-device playtest.
   - All Act 2 zones (`act2town`, `sunscar`, `tomb`, `suntemple`, `cistern`, `mirage`, `stronghold`,
     `arena`) rendered nonblank screenshots with high color variance; no page errors.
   - Six Warden quests present; all new standalone zones have roots, colliders, inbound/outbound portals.
-  - Sunscar mesa blockers present for every mesa; sampled mesa heights are elevated; Sun-Dial shard mesh Y
-    equals `zoneGroundY('sunscar', x, z)` for all three shards.
+  - Sunscar mesa blockers present for every mesa; sampled mesa ground heights are low because mesas are
+    separate collidable scenery, not walkable terrain; Sun-Dial shard mesh Y equals `zoneGroundY('sunscar',
+    x, z)` for all three shards.
   - Gate logic confirmed with dev/god disabled: arena locked before `The Storm-Eater`, arena opens when
     accepted, Rift remains locked during the quest, Rift opens after reward.
   - Shard→altar flow confirmed: three pickups set mask `1→3→7`, hide shard meshes, advance to stage 1;
     altar sets `sunDialAssembled` and marks the quest reward-ready.
+- **2026-06-30 Sunscar mesa follow-up**:
+  - Static script parse clean after removing mesa height from `buildSunscarTerrain()`.
+  - Chrome/Playwright targeted proof sampled all eight `SUNSCAR_MESAS`: center ground heights stayed at dune
+    elevation, eight radial collision probes per mesa were pushed out to `blockR + playerR`, and the visual
+    rim remained low at `walkR` while rising outside the playable ring.
 
 ## Needs YOUR eyes (subjective — the loop deliberately did not self-certify)
 - **Feel / fun on a real device** — a full town→dungeons→rift playthrough with a kid. Pacing, difficulty
