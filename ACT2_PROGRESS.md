@@ -163,6 +163,18 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   dune elevation, pushed test points out to each mesa collider radius, and confirmed the rim stays low at
   the clamp while rising outside the playable area.
 
+## BUGFIX FOLLOW-UP (2026-06-30): Sunscar open-world contract
+- **Root cause**: the mesa proof was too narrow. Sunscar still had a dungeon-style zone contract even though
+  it is Act 2's open world, so cursor targeting fell back to the flat plane instead of the displaced terrain
+  mesh and click targets square-clamped toward invalid rim/corner space.
+- **Fix**: Sunscar is now `kind: 'overworld'`, stores its displaced terrain as `zones.sunscar.gmesh`, marks
+  that mesh `noTerrain`, and click/held-click/meteor targets use `clampToWalkDisc()` for radial clamping.
+  Act 1 spawn-pack logic remains gated to `game.zone === 'overworld'` so desert mobs still use the Sunscar
+  mix.
+- **Verification**: static script parse and `git diff --check` clean; Chrome/Playwright confirmed Sunscar
+  `kind === 'overworld'`, `gmesh.userData.noTerrain`, radial clamp samples, mesa blockers, and 16 forced
+  rim probes resolving to `d=196` with low `groundY` while the visual rim still rises outside the walk disc.
+
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
 leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL

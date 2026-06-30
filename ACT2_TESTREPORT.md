@@ -65,6 +65,14 @@ needs owner eyes / a real-device playtest.
   - Chrome/Playwright targeted proof sampled all eight `SUNSCAR_MESAS`: center ground heights stayed at dune
     elevation, eight radial collision probes per mesa were pushed out to `blockR + playerR`, and the visual
     rim remained low at `walkR` while rising outside the playable ring.
+- **2026-06-30 Sunscar open-world follow-up**:
+  - Static script parse and `git diff --check` clean.
+  - Chrome/Playwright loaded `?dev&openworldfix=...` and confirmed Sunscar is an `overworld`-kind zone with
+    a real terrain `gmesh` marked `noTerrain`.
+  - Click-target clamp samples landed radially at `d=195` for a `walkR=196` disc, not in square-clamped
+    rim/corner space.
+  - All eight mesa blockers still passed; 16 forced outer-rim player probes resolved to `d=196` with low
+    ground heights (`max=2.476`) while the visual rim outside the walk disc still rises (`20.432`).
 
 ## Needs YOUR eyes (subjective — the loop deliberately did not self-certify)
 - **Feel / fun on a real device** — a full town→dungeons→rift playthrough with a kid. Pacing, difficulty
