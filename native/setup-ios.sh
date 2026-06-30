@@ -56,6 +56,16 @@ if [ ! -d node_modules ]; then
   npm install -D @capacitor/cli
 fi
 
+# Patch a Swift Package version conflict: @capacitor-community/apple-sign-in (newest is 7.1.0, no Cap-8
+# release yet) pins capacitor-swift-pm to 7.x, but @capgo/capacitor-updater needs 8.x — so SPM can't
+# resolve and Xcode shows "Missing package product 'CapApp-SPM'". The plugin's Swift only uses the stable
+# Capacitor/Cordova products, so widen its range to allow 8.x. Idempotent; re-applied after any install.
+APPLE_PKG="node_modules/@capacitor-community/apple-sign-in/Package.swift"
+if [ -f "$APPLE_PKG" ] && grep -q 'capacitor-swift-pm.git", from: "7.0.0"' "$APPLE_PKG"; then
+  echo "==> Patching apple-sign-in to allow capacitor-swift-pm 8.x (Cap 7+8 conflict fix) ..."
+  /usr/bin/sed -i '' 's#capacitor-swift-pm.git", from: "7.0.0"#capacitor-swift-pm.git", "7.0.0"..<"9.0.0"#' "$APPLE_PKG"
+fi
+
 echo "==> Generating the native iOS project (first run only) ..."
 if [ ! -d ios ]; then
   npx cap add ios
