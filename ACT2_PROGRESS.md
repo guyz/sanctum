@@ -163,16 +163,17 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   dune elevation, pushed test points out to each mesa collider radius, and confirmed the rim stays low at
   the clamp while rising outside the playable area.
 
-## BUGFIX FOLLOW-UP (2026-06-30): Sunscar open-world contract
-- **Root cause**: the mesa proof was too narrow. Sunscar still had a dungeon-style zone contract even though
-  it is Act 2's open world, so cursor targeting fell back to the flat plane instead of the displaced terrain
-  mesh and click targets square-clamped toward invalid rim/corner space.
-- **Fix**: Sunscar is now `kind: 'overworld'`, stores its displaced terrain as `zones.sunscar.gmesh`, marks
-  that mesh `noTerrain`, and click/held-click/meteor targets use `clampToWalkDisc()` for radial clamping.
-  Act 1 spawn-pack logic remains gated to `game.zone === 'overworld'` so desert mobs still use the Sunscar
-  mix.
+## BUGFIX FOLLOW-UP (2026-06-30): Sunscar terrain-surface contract
+- **Root cause**: the mesa proof was too narrow. Sunscar had a displaced heightfield, but the engine did not
+  treat that mesh as the zone's pickable terrain surface: cursor targeting fell back to the flat plane, the
+  ground mesh was not explicitly protected from prop-settling, and click targets square-clamped toward
+  invalid rim/corner space.
+- **Fix**: Sunscar keeps its `kind: 'dungeon'` semantics, but stores its displaced terrain as
+  `zones.sunscar.gmesh`, marks that mesh `noTerrain`, and click/held-click/meteor targets use
+  `clampToWalkDisc()` for radial clamping. Circle-collider resolution now takes a short second pass so
+  overlapping mesa/rock blockers do not leave residual penetration.
 - **Verification**: static script parse and `git diff --check` clean; Chrome/Playwright confirmed Sunscar
-  `kind === 'overworld'`, `gmesh.userData.noTerrain`, radial clamp samples, mesa blockers, and 16 forced
+  `kind === 'dungeon'`, `gmesh.userData.noTerrain`, radial clamp samples, mesa blockers, and 16 forced
   rim probes resolving to `d=196` with low `groundY` while the visual rim still rises outside the walk disc.
 
 ## STATUS: feature-complete; autonomous loop PAUSED
