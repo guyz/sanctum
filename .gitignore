@@ -14,3 +14,6 @@ node_modules/
 # local-only ops notes (device/account specifics, not for the public repo)
 SAVE_MIGRATION.md
 *.local.md
+
+# locally generated App Store Connect upload assets
+appstore-assets/
