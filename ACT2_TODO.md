@@ -4,12 +4,12 @@ Single source of truth for what Act 2 **has**, what's **not built**, and the mou
 Everything Act-2 is in the one file `sanctum-of-ash.html` (~31MB; game JS is in
 `<script id="game">`; huge base64 lines — always grep length-filtered: `awk 'length($0)<300 && /X/{print NR": "$0}'`).
 
-## 2026-06-30 current status
+## 2026-07-01 current status
 - **Elevation / terrain are fixed in code, including the Sun's Rest town bug.** The persistent report was
   in `act2town` (Sun's Rest and its surrounding desert hills), not in `sunscar`. Sun's Rest now uses the
   Act-1 heightfield pattern with a desert texture: sampled `zoneGroundY('act2town', x, z)`, a registered
-  terrain `gmesh`, flattened oasis/plaza/roads, a smaller `walkR` inside the visible hill rim, and
-  `settleTerrainChildren()` for town props/shadows/portals.
+  terrain `gmesh`, flattened oasis/plaza/roads, Act-1-scale outskirts (`r=165`, `walkR=150`) with the
+  visible hill rim far from the hub, and `settleTerrainChildren()` for town props/shadows/portals.
 - **Sunscar remains separate from the town.** It keeps its own fixed terrain-surface architecture:
   `zoneGroundY()` / `groundY()` are zone-aware, static Sunscar props settle with `settleTerrainChildren()`,
   pickups/portals/enemies use zone-aware terrain height, Sunscar has a smaller `walkR` than its visual rim,
@@ -41,9 +41,10 @@ Everything Act-2 is in the one file `sanctum-of-ash.html` (~31MB; game JS is in
 
 **Zones** (registry ~line 13160; builders are `buildOasisTown`, `buildSunscar`, `buildTomb`, `buildSunTemple`,
 `buildCistern`, `buildMirage`, `buildStronghold`, `buildArena`):
-- **Sun's Rest** (`act2town`) — oasis hub on its own Act-1-style desert heightfield; adobe (flat-roof)
-  houses, spaced with streets, NPCs, the questgiver **Warden Khenra**, market/well/bonfire. (Reworked from
-  the old cramped medieval look and the later flat-plane/half-dome terrain attempt.)
+- **Sun's Rest** (`act2town`) — oasis hub plus Act-1-sized desert outskirts on its own desert heightfield;
+  adobe (flat-roof) houses, spaced with streets, NPCs, the questgiver **Warden Khenra**, market/well/bonfire.
+  (Reworked from the old cramped medieval look, the flat-plane/half-dome terrain attempt, and the too-small
+  `walkR=54` rim that put a sand wall beside the player.)
 - **The Sunscar Dunes** (`sunscar`) — the open world. **Now R=215 (~30% bigger than Act 1's `OVERWORLD_R`=165).**
   Real terrain heightfield, gates spread to compass edges (S=home, N=Tomb, W=Sun Temple, E=Rift), 4 oases,
   8 landmark mesas baked into the terrain, ~3× foliage density, 6 shrines / 12 chests.
@@ -107,13 +108,13 @@ used a flat town plane plus separate decorative half-sphere dune ridges, so visu
 targeting, prop settling, and the playable boundary were not driven by one shared terrain surface.
 
 Current fix: `buildAct2TownTerrain()` creates a desert heightfield using the Act-1 pattern (layered waves,
-flatten masks for plaza/roads/gates, and a rim outside the playable walk disc). `sampleAct2Town()` feeds
+flatten masks for plaza/roads/gates, and the Act-1 far rim profile). `sampleAct2Town()` feeds
 `zoneGroundY('act2town', x, z)`, `buildOasisTown()` builds a displaced terrain mesh from that grid, registers
 it with `registerTerrainSurface('act2town', ground)`, and settles static town children with
-`settleTerrainChildren(root, 'act2town')`. `act2town.walkR` is intentionally smaller than the visible radius,
-so the hills/rim read as surrounding overworld terrain without letting the player climb into the old broken
-edge geometry. The zone still uses safe town spawn semantics (`kind: 'interior'`), so this does not turn the
-hub into a hostile spawn field.
+`settleTerrainChildren(root, 'act2town')`. `act2town` now uses Act-1-scale outskirts (`r=165`, `walkR=150`)
+instead of the failed tiny town disc (`walkR=54`), so the player's nearby surroundings are rolling sand and
+the hill rim is actually distant. The zone still uses safe town spawn semantics (`kind: 'interior'`), so this
+does not turn the hub into a hostile spawn field.
 
 ---
 

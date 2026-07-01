@@ -73,15 +73,16 @@ needs owner eyes / a real-device playtest.
     rim/corner space.
   - All eight mesa blockers still passed; 16 forced outer-rim player probes resolved to `d=196` with low
     ground heights (`max=2.476`) while the visual rim outside the walk disc still rises (`20.432`).
-- **2026-06-30 Sun's Rest (`act2town`) terrain follow-up**:
+- **2026-07-01 Sun's Rest (`act2town`) terrain follow-up**:
   - Static script parse clean after replacing the town flat plane plus decorative half-dome dunes with a
-    sampled desert heightfield.
-  - Chrome/Playwright loaded `?dev&act2townterrain=...` and confirmed `act2town` keeps safe town semantics
+    sampled desert heightfield and expanding the town surroundings to Act-1 scale.
+  - Chrome/Playwright loaded `?dev&outskirts=...` and confirmed `act2town` keeps safe town semantics
     (`kind: interior`) while owning a real registered terrain `gmesh` marked `noTerrain`.
-  - Ground samples: plaza `0`, return road `0`, dunes gate `0`, walk edge near gate `0`; visual hills beyond
-    the walk disc rise to `16.254` east and `25.935` north.
-  - Forced player position `(90,0)` resolved to the circular town walk boundary at `d=54`, `y=0`; portal and
-    Warden placement ride `zoneGroundY('act2town', ...)`; no console warnings.
+  - Ground samples: plaza `0`, old 54-unit edge road `0`, old 54-unit edge off-road `0.306`, mid-outskirts
+    `4.289`, dunes gate `0`; distant off-road rims rise to `15.582` north and `15.03` diagonal.
+  - Forced player position `(180,0)` resolved to the circular town walk boundary at `d=150`, `y=0`; the
+    inner 100-unit slope scan stayed below `0.447`; no console warnings.
+  - Screenshot `/tmp/sanctum-act2town-outskirts.png` shows open sand at the previous wall location.
 
 ## Needs YOUR eyes (subjective — the loop deliberately did not self-certify)
 - **Feel / fun on a real device** — a full town→dungeons→rift playthrough with a kid. Pacing, difficulty
