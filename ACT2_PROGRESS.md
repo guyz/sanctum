@@ -191,6 +191,19 @@ See `ACT2_GOAL.md` for the definition of done + protocol.
   around `15`, forced player position `(180,0)` resolves to `d=150`, `y=0`, and there are no console warnings.
   Screenshot `/tmp/sanctum-act2town-outskirts.png` confirmed open sand at the old wall location.
 
+## BUGFIX FOLLOW-UP (2026-07-01): Sun's Rest road corridor was still too flat
+- **Root cause**: the expanded heightfield still copied Act 1's full road-flatten mask onto one long
+  Sun's Rest-to-dunes road, then drew a long flat packed-sand plane over it. The town apron was correct, but
+  the surrounding Act 2 open-world approach still looked like a flat board in the preview.
+- **Fix**: kept plaza/return/gate flats, shortened the decorative packed-sand street mesh to the town apron,
+  limited road flattening to the town apron plus dunes gate, and added readable procedural desert ridges inside
+  the shared `act2town` heightfield so the mid-outskirts actually climb under `zoneGroundY()`.
+- **Verification**: static script parse clean; `git diff --check` clean; sampled `act2town` heights keep
+  `(0,6)`, `(44,6)`, and `(155,6)` at `0`, while the outbound ridge climbs through `(90,6)=8.08`,
+  `(112,6)=16.8`, and nearby hills sample around `11-14`. In-app preview loaded
+  `?dev&act2ridge=112,12` on build `act2town-readable-ridges-2026-07-01a`; screenshot saved to
+  `/tmp/sanctum-act2-ridge-shoulder.png`.
+
 ## STATUS: feature-complete; autonomous loop PAUSED
 The objective acceptance criteria are met + verified (engine/collision/kits/set-pieces/quests/rift/
 leak/prod-safety). Remaining items are SUBJECTIVE (feel/fun/graphics — need the user) or OPTIONAL

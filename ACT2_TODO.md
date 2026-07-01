@@ -108,13 +108,15 @@ used a flat town plane plus separate decorative half-sphere dune ridges, so visu
 targeting, prop settling, and the playable boundary were not driven by one shared terrain surface.
 
 Current fix: `buildAct2TownTerrain()` creates a desert heightfield using the Act-1 pattern (layered waves,
-flatten masks for plaza/roads/gates, and the Act-1 far rim profile). `sampleAct2Town()` feeds
+town-safe flatten masks, readable outskirts ridges, and the Act-1 far rim profile). `sampleAct2Town()` feeds
 `zoneGroundY('act2town', x, z)`, `buildOasisTown()` builds a displaced terrain mesh from that grid, registers
 it with `registerTerrainSurface('act2town', ground)`, and settles static town children with
 `settleTerrainChildren(root, 'act2town')`. `act2town` now uses Act-1-scale outskirts (`r=165`, `walkR=150`)
 instead of the failed tiny town disc (`walkR=54`), so the player's nearby surroundings are rolling sand and
-the hill rim is actually distant. The zone still uses safe town spawn semantics (`kind: 'interior'`), so this
-does not turn the hub into a hostile spawn field.
+the hill rim is actually distant. The outbound road no longer flattens the entire town-to-dunes corridor:
+only the town apron and gate landing stay flat, while the middle approach climbs through the shared
+heightfield. The zone still uses safe town spawn semantics (`kind: 'interior'`), so this does not turn the
+hub into a hostile spawn field. Dev proof URL: `?dev&act2ridge=112,12`.
 
 ---
 
